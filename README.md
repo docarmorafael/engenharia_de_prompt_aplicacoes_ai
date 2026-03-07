@@ -19,7 +19,7 @@ Aplicações em IA
 
 A Engenharia de Prompt é essencial para diversas aplicações, incluindo:
 
-Chatbots e assistentes virtuais: Melhorar a qualidade das respostas e a experiência do usuário.
+Chatbots e assistentes virtuais: Melhorar a qualidade das respostas e a experiência do usuário
 Automação de tarefas: Gerar textos, relatórios, códigos e muito mais com base em instruções claras.
 Análise de sentimentos e classificação de textos: Utilizar prompts para orientar modelos a identificar emoções, tópicos ou intenções.
 Tradução automática e sumarização: Otimizar instruções para obter traduções e resumos mais fiéis ao contexto original.
