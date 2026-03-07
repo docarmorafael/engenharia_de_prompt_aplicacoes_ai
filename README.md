@@ -1,7 +1,9 @@
 # engenharia_de_prompt_aplicacoes_ai
 Atividades da universidade
 Engenharia de Prompt e Aplicações em IA
+
 Sobre a Disciplina
+
 A disciplina Engenharia de Prompt explora técnicas, metodologias e práticas para criar, otimizar e gerenciar prompts — instruções ou entradas textuais — utilizadas para interagir com modelos de linguagem de Inteligência Artificial (IA), como LLMs (Large Language Models). O objetivo é capacitar os alunos a extrair o máximo potencial desses modelos, garantindo respostas mais precisas, relevantes e alinhadas aos objetivos do usuário.
 
 Tópicos Abordados
