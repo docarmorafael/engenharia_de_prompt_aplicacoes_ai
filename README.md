@@ -1,6 +1,6 @@
 # engenharia_de_prompt_aplicacoes_ai
 Atividades da universidade
-Engenharia de Prompt e Aplicações em IA
+Engenharia de Prompt e Aplicações em AI
 
 Sobre a Disciplina:
 
