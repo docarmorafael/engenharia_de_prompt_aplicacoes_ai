@@ -20,5 +20,4 @@ O repositório é composto por Jupyter Notebooks que cobrem diversos tópicos:
 
 - **Python 3.x**
 - **Jupyter Notebook**
-- **Bibliotecas de IA e NLP** (conforme necessário em cada notebook)
-cd engenharia_de_prompt_aplicacoes_ai
+- **Bibliotecas de IA e NLP**
