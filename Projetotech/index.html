@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Consulte os dias de recolhimento de lixo em Santa Maria, DF">
-    <meta name="keywords" content="coleta de lixo, Santa Maria, DF, recolhimento, limpeza">
-    <meta name="author" content="Projeto Tech">
-    <title>🗑️ Recolhimento de Lixo - Santa Maria, DF</title>
+    <meta name="description" content="Consulte os dias de recolhimento de lixo em Santa Maria, DF - Serviço Público">
+    <meta name="keywords" content="coleta de lixo, Santa Maria, DF, recolhimento, serviço público">
+    <meta name="author" content="Prefeitura de Santa Maria, DF">
+    <title>Recolhimento de Lixo - Santa Maria, DF</title>
     <style>
         * {
             margin: 0;
@@ -15,38 +15,48 @@
         }
 
         :root {
-            --primary-color: #2ecc71;
-            --secondary-color: #27ae60;
+            /* Cores - Padrão Digital Governo Federal */
+            --primary-color: #0050b3;
+            --secondary-color: #003d82;
+            --accent-color: #00b894;
+            --danger-color: #cc3300;
+            --warning-color: #ff9500;
+            --success-color: #00b894;
+            --info-color: #0050b3;
             --dark-bg: #1a1a1a;
-            --light-bg: #f8f9fa;
+            --light-bg: #f5f5f5;
+            --white-bg: #ffffff;
             --text-dark: #2c3e50;
-            --text-light: #ecf0f1;
-            --border-color: #bdc3c7;
-            --success-color: #2ecc71;
-            --warning-color: #f39c12;
-            --danger-color: #e74c3c;
+            --text-light: #666666;
+            --border-color: #d0d0d0;
+            --error-bg: #fff3e0;
+            --error-border: #ff9500;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
             background-color: var(--light-bg);
         }
 
-        /* Header e Navegação */
+        /* Header */
         header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
+            background: var(--white-bg);
+            border-bottom: 4px solid var(--primary-color);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
 
         nav {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 1rem;
             display: flex;
@@ -55,8 +65,9 @@
         }
 
         .logo {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: bold;
+            color: var(--primary-color);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -69,21 +80,22 @@
         }
 
         .nav-links a {
-            color: white;
+            color: var(--text-dark);
             text-decoration: none;
-            transition: opacity 0.3s ease;
+            transition: color 0.3s ease;
             font-weight: 500;
+            font-size: 0.95rem;
         }
 
         .nav-links a:hover {
-            opacity: 0.8;
+            color: var(--primary-color);
         }
 
         .menu-toggle {
             display: none;
             background: none;
             border: none;
-            color: white;
+            color: var(--primary-color);
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -92,48 +104,49 @@
         .hero {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 4rem 1rem;
+            padding: 3rem 1rem;
             text-align: center;
         }
 
         .hero-content {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
         }
 
         .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            margin-bottom: 0;
             opacity: 0.95;
         }
 
-        /* Container Principal */
+        /* Container */
         .container {
-            max-width: 1200px;
+            max-width: 1280px;
             margin: 0 auto;
             padding: 0 1rem;
         }
 
-        /* Seção de Busca */
+        /* Search Section */
         .search-section {
-            background: white;
+            background: var(--white-bg);
             padding: 2rem;
-            margin: -3rem 1rem 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin: -2rem 1rem 2rem;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             position: relative;
             z-index: 10;
+            border-left: 4px solid var(--primary-color);
         }
 
         .search-form {
             display: grid;
-            grid-template-columns: 1fr auto;
+            grid-template-columns: 1fr 1fr auto;
             gap: 1rem;
             align-items: end;
         }
@@ -147,23 +160,30 @@
             font-weight: 600;
             margin-bottom: 0.5rem;
             color: var(--text-dark);
+            font-size: 0.95rem;
         }
 
         .form-group input,
         .form-group select {
             padding: 0.75rem;
             border: 2px solid var(--border-color);
-            border-radius: 5px;
+            border-radius: 4px;
             font-size: 1rem;
             transition: border-color 0.3s ease;
             font-family: inherit;
+            background: white;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 5px rgba(46, 204, 113, 0.3);
+            box-shadow: 0 0 0 3px rgba(0, 80, 179, 0.1);
+        }
+
+        .form-group input:disabled {
+            background-color: var(--light-bg);
+            cursor: not-allowed;
         }
 
         .btn-search {
@@ -171,35 +191,41 @@
             color: white;
             border: none;
             padding: 0.75rem 2rem;
-            border-radius: 5px;
+            border-radius: 4px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s ease, transform 0.2s ease;
+            transition: background 0.3s ease;
         }
 
         .btn-search:hover {
             background: var(--secondary-color);
-            transform: translateY(-2px);
         }
 
         .btn-search:active {
-            transform: translateY(0);
+            transform: scale(0.98);
         }
 
-        /* Seção de Resultados */
+        /* Results Section */
         .results-section {
-            background: white;
+            background: var(--white-bg);
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             display: none;
+            border-left: 4px solid var(--success-color);
         }
 
         .results-section.active {
             display: block;
             animation: slideIn 0.3s ease;
+        }
+
+        .results-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
         }
 
         @keyframes slideIn {
@@ -213,66 +239,104 @@
             }
         }
 
-        .result-card {
-            border: 2px solid var(--border-color);
-            padding: 1.5rem;
-            border-radius: 8px;
+        /* Alert Messages */
+        .alert {
+            padding: 1rem;
+            border-radius: 4px;
             margin-bottom: 1rem;
-            transition: all 0.3s ease;
+            border-left: 4px solid;
         }
 
-        .result-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        .alert-error {
+            background: var(--error-bg);
+            border-left-color: var(--error-border);
+            color: var(--danger-color);
+        }
+
+        .alert-warning {
+            background: #fff8e1;
+            border-left-color: var(--warning-color);
+            color: #e65100;
+        }
+
+        .alert-success {
+            background: #e8f5e9;
+            border-left-color: var(--success-color);
+            color: #2e7d32;
+        }
+
+        /* Result Card */
+        .result-card {
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            background: var(--white-bg);
         }
 
         .result-card h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
         }
 
-        .collection-day {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 500;
-            color: var(--text-dark);
+        .result-card-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
         }
 
-        .collection-day strong {
-            color: var(--secondary-color);
+        .status-valid {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .status-invalid {
+            background: #fff3e0;
+            color: #e65100;
         }
 
         .collection-info {
             margin-top: 1rem;
             padding-top: 1rem;
             border-top: 1px solid var(--border-color);
-            font-size: 0.95rem;
-            color: #555;
         }
 
-        /* Seção de Calendário */
+        .collection-info p {
+            margin: 0.5rem 0;
+            color: var(--text-light);
+        }
+
+        .collection-info strong {
+            color: var(--text-dark);
+        }
+
+        /* Calendar Section */
         .calendar-section {
-            background: white;
+            background: var(--white-bg);
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-color);
         }
 
         .calendar-section h2 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             text-align: center;
+            font-size: 1.5rem;
         }
 
         .calendar {
             width: 100%;
             border-collapse: collapse;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             overflow: hidden;
         }
 
@@ -285,6 +349,7 @@
             padding: 1rem;
             text-align: center;
             font-weight: 600;
+            font-size: 0.95rem;
         }
 
         .calendar td {
@@ -292,31 +357,41 @@
             text-align: center;
             border: 1px solid var(--border-color);
             height: 60px;
+            background: var(--white-bg);
         }
 
         .calendar td.collection-day-marker {
-            background: rgba(46, 204, 113, 0.2);
+            background: #e8f5e9;
             font-weight: 600;
-            color: var(--secondary-color);
+            color: var(--success-color);
         }
 
         .calendar td.today {
-            background: rgba(243, 156, 18, 0.2);
+            background: #fff3e0;
             border: 2px solid var(--warning-color);
+            font-weight: 600;
         }
 
         .calendar td.other-month {
-            color: #ccc;
+            color: #bdbdbd;
             background: #fafafa;
         }
 
-        /* Seção de Informações */
+        /* Info Section */
         .info-section {
-            background: white;
+            background: var(--white-bg);
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .info-section h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 2rem;
+            font-size: 1.5rem;
         }
 
         .info-grid {
@@ -328,15 +403,14 @@
         .info-card {
             text-align: center;
             padding: 1.5rem;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             transition: all 0.3s ease;
+            background: var(--white-bg);
         }
 
         .info-card:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
-            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .info-card-icon {
@@ -347,25 +421,28 @@
         .info-card h3 {
             color: var(--primary-color);
             margin-bottom: 0.5rem;
+            font-size: 1.1rem;
         }
 
         .info-card p {
             font-size: 0.95rem;
-            color: #555;
+            color: var(--text-light);
         }
 
-        /* Seção de Dicas */
+        /* Tips Section */
         .tips-section {
-            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            background: var(--light-bg);
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 10px;
+            border-radius: 4px;
+            border-left: 4px solid var(--primary-color);
         }
 
         .tips-section h2 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
             text-align: center;
+            font-size: 1.5rem;
         }
 
         .tips-list {
@@ -376,10 +453,10 @@
         }
 
         .tips-list li {
-            background: white;
+            background: var(--white-bg);
             padding: 1.5rem;
             border-left: 4px solid var(--primary-color);
-            border-radius: 5px;
+            border-radius: 4px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
 
@@ -389,19 +466,21 @@
             margin-bottom: 0.5rem;
         }
 
-        /* Seção de Contato */
+        /* Contact Section */
         .contact-section {
-            background: white;
+            background: var(--white-bg);
             padding: 2rem;
             margin-bottom: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             text-align: center;
+            border-left: 4px solid var(--primary-color);
         }
 
         .contact-section h2 {
             color: var(--primary-color);
             margin-bottom: 1.5rem;
+            font-size: 1.5rem;
         }
 
         .contact-info {
@@ -413,14 +492,13 @@
 
         .contact-item {
             padding: 1.5rem;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
             transition: all 0.3s ease;
         }
 
         .contact-item:hover {
-            border-color: var(--primary-color);
-            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .contact-item strong {
@@ -436,14 +514,16 @@
             text-align: center;
             padding: 2rem;
             margin-top: 3rem;
+            border-top: 4px solid var(--primary-color);
         }
 
         footer p {
             margin: 0.5rem 0;
+            font-size: 0.95rem;
         }
 
         footer a {
-            color: var(--primary-color);
+            color: var(--accent-color);
             text-decoration: none;
             transition: opacity 0.3s ease;
         }
@@ -452,13 +532,7 @@
             opacity: 0.8;
         }
 
-        .footer-divider {
-            margin: 1.5rem 0;
-            border: none;
-            border-top: 1px solid var(--border-color);
-        }
-
-        /* Responsividade */
+        /* Responsiveness */
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
@@ -467,9 +541,10 @@
                 top: 100%;
                 left: 0;
                 right: 0;
-                background: var(--secondary-color);
+                background: white;
                 padding: 1rem;
-                gap: 1rem;
+                gap: 0.5rem;
+                border-bottom: 1px solid var(--border-color);
             }
 
             .nav-links.active {
@@ -481,11 +556,7 @@
             }
 
             .hero h1 {
-                font-size: 2rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
+                font-size: 1.75rem;
             }
 
             .search-form {
@@ -493,19 +564,7 @@
             }
 
             .search-section {
-                margin: -2rem 1rem 2rem;
-            }
-
-            .info-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .tips-list {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-info {
-                grid-template-columns: 1fr;
+                margin: -1.5rem 1rem 2rem;
             }
 
             nav {
@@ -524,25 +583,21 @@
                 font-size: 1.5rem;
             }
 
+            .hero p {
+                font-size: 1rem;
+            }
+
             .container {
-                padding: 0 0.5rem;
+                padding: 0 0.75rem;
             }
 
             .search-section {
                 padding: 1rem;
-                margin: -1.5rem 0.5rem 1rem;
-            }
-
-            .result-card {
-                padding: 1rem;
-            }
-
-            .info-card-icon {
-                font-size: 2rem;
+                margin: -1.25rem 0.75rem 1rem;
             }
 
             .calendar {
-                font-size: 0.9rem;
+                font-size: 0.85rem;
             }
 
             .calendar td {
@@ -552,24 +607,24 @@
 
             .calendar th {
                 padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .tips-list {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* Animações */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        section {
-            animation: fadeIn 0.5s ease;
-        }
-
-        /* Utilitários */
+        /* Utilities */
         .text-center {
             text-align: center;
         }
@@ -582,7 +637,7 @@
         .empty-state {
             text-align: center;
             padding: 2rem;
-            color: #999;
+            color: var(--text-light);
         }
 
         .empty-state-icon {
@@ -596,7 +651,7 @@
     <header>
         <nav>
             <div class="logo">
-                <span>🗑️ Coleta Lixo SM</span>
+                Recolhimento de Lixo
             </div>
             <button class="menu-toggle" id="menuToggle">☰</button>
             <ul class="nav-links" id="navLinks">
@@ -611,8 +666,8 @@
     <!-- Hero Section -->
     <section class="hero" id="inicio">
         <div class="hero-content">
-            <h1>🗑️ Recolhimento de Lixo em Santa Maria, DF</h1>
-            <p>Consulte facilmente os dias de coleta para sua rua e organize-se melhor</p>
+            <h1>Recolhimento de Lixo</h1>
+            <p>Santa Maria, DF - Serviço Público de Limpeza</p>
         </div>
     </section>
 
@@ -621,13 +676,9 @@
         <section class="search-section">
             <form class="search-form" id="searchForm">
                 <div class="form-group">
-                    <label for="street">Rua ou Avenida:</label>
-                    <input type="text" id="street" placeholder="Digite o nome da sua rua..." required>
-                </div>
-                <div class="form-group">
-                    <label for="neighborhood">Bairro:</label>
+                    <label for="neighborhood">Selecione o Bairro:</label>
                     <select id="neighborhood" required>
-                        <option value="">Selecione o bairro</option>
+                        <option value="">-- Escolha uma opção --</option>
                         <option value="centro">Centro</option>
                         <option value="sul">Zona Sul</option>
                         <option value="norte">Zona Norte</option>
@@ -635,19 +686,23 @@
                         <option value="oeste">Zona Oeste</option>
                     </select>
                 </div>
-                <button type="submit" class="btn-search">🔍 Buscar</button>
+                <div class="form-group">
+                    <label for="street">Rua ou Avenida:</label>
+                    <input type="text" id="street" placeholder="Digite o nome da rua..." required>
+                </div>
+                <button type="submit" class="btn-search">Consultar</button>
             </form>
         </section>
 
         <!-- Results Section -->
         <section class="results-section" id="resultsSection">
-            <h2>Resultados da Busca</h2>
+            <h2>Resultado da Consulta</h2>
             <div id="resultsContainer"></div>
         </section>
 
         <!-- Calendar Section -->
         <section class="calendar-section" id="calendario">
-            <h2>📅 Calendário de Coleta - Maio 2026</h2>
+            <h2>Calendário de Coleta - Maio 2026</h2>
             <table class="calendar">
                 <thead>
                     <tr>
@@ -672,38 +727,38 @@
                     </tr>
                     <tr>
                         <td>3</td>
-                        <td class="collection-day-marker">4 📦</td>
+                        <td class="collection-day-marker">4</td>
                         <td>5</td>
-                        <td class="collection-day-marker">6 📦</td>
+                        <td class="collection-day-marker">6</td>
                         <td>7</td>
-                        <td class="collection-day-marker">8 📦</td>
+                        <td class="collection-day-marker">8</td>
                         <td>9</td>
                     </tr>
                     <tr>
                         <td>10</td>
-                        <td class="collection-day-marker">11 📦</td>
+                        <td class="collection-day-marker">11</td>
                         <td>12</td>
-                        <td class="collection-day-marker">13 📦</td>
+                        <td class="collection-day-marker">13</td>
                         <td>14</td>
-                        <td class="collection-day-marker">15 📦</td>
+                        <td class="collection-day-marker">15</td>
                         <td>16</td>
                     </tr>
                     <tr>
                         <td>17</td>
-                        <td class="collection-day-marker">18 📦</td>
+                        <td class="collection-day-marker">18</td>
                         <td>19</td>
-                        <td class="collection-day-marker">20 📦</td>
+                        <td class="collection-day-marker">20</td>
                         <td>21</td>
-                        <td class="collection-day-marker">22 📦</td>
+                        <td class="collection-day-marker">22</td>
                         <td>23</td>
                     </tr>
                     <tr>
                         <td>24</td>
-                        <td class="collection-day-marker">25 📦</td>
+                        <td class="collection-day-marker">25</td>
                         <td>26</td>
-                        <td class="collection-day-marker">27 📦</td>
+                        <td class="collection-day-marker">27</td>
                         <td>28</td>
-                        <td class="collection-day-marker">29 📦</td>
+                        <td class="collection-day-marker">29</td>
                         <td>30</td>
                     </tr>
                     <tr>
@@ -721,32 +776,32 @@
 
         <!-- Info Section -->
         <section class="info-section">
-            <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">Como Funciona</h2>
+            <h2>Como Funciona</h2>
             <div class="info-grid">
                 <div class="info-card">
+                    <div class="info-card-icon">🔍</div>
+                    <h3>1. Busque seu Bairro</h3>
+                    <p>Selecione o bairro onde você reside no formulário acima.</p>
+                </div>
+                <div class="info-card">
                     <div class="info-card-icon">📍</div>
-                    <h3>Localize sua Rua</h3>
-                    <p>Digite o nome da sua rua ou avenida e selecione o bairro para encontrar informações específicas.</p>
+                    <h3>2. Informe a Rua</h3>
+                    <p>Digite o nome da sua rua ou avenida para validação.</p>
                 </div>
                 <div class="info-card">
                     <div class="info-card-icon">📅</div>
-                    <h3>Confira o Dia</h3>
-                    <p>Consulte o dia exato de coleta para sua localidade no calendário interativo.</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-card-icon">⏰</div>
-                    <h3>Organize-se</h3>
-                    <p>Coloque suas sacolas na rua de forma segura no dia indicado. A coleta ocorre entre 6h e 18h.</p>
+                    <h3>3. Confira o Dia</h3>
+                    <p>Veja o próximo dia de coleta e os horários de atendimento.</p>
                 </div>
             </div>
         </section>
 
         <!-- Tips Section -->
         <section class="tips-section" id="dicas">
-            <h2>💡 Dicas Importantes para a Coleta</h2>
+            <h2>Dicas Importantes</h2>
             <ul class="tips-list">
                 <li>
-                    <strong>🕕 Horário de Coleta:</strong>
+                    <strong>⏰ Horário de Coleta:</strong>
                     A coleta acontece entre 6h00 e 18h00. Coloque suas sacolas na calçada respeitando este horário.
                 </li>
                 <li>
@@ -758,35 +813,35 @@
                     Use sacolas resistentes para evitar vazamentos e facilitar o manuseio pelos coletores.
                 </li>
                 <li>
-                    <strong>🚫 O que NÃO colocar:</strong>
-                    Não coloque entulho, materiais perigosos, ou objetos que possam danificar o caminhão de coleta.
+                    <strong>⚠️ Materiais Proibidos:</strong>
+                    Não coloque entulho, materiais perigosos, ou objetos que possam danificar o caminhão.
                 </li>
                 <li>
-                    <strong>📦 Coleta de Móveis:</strong>
-                    Para móveis grandes, agende com antecedência através do contato da Prefeitura.
+                    <strong>📦 Móveis Grandes:</strong>
+                    Para móveis de grande porte, agende com antecedência na prefeitura.
                 </li>
                 <li>
                     <strong>🌧️ Dias Chuvosos:</strong>
-                    A coleta não é suspenso em dias chuvosos. Proteja suas sacolas com sacos plásticos se necessário.
+                    A coleta não é suspensa em dias chuvosos. Proteja suas sacolas se necessário.
                 </li>
             </ul>
         </section>
 
         <!-- Contact Section -->
         <section class="contact-section" id="contato">
-            <h2>📞 Entre em Contato</h2>
-            <p style="margin-bottom: 2rem;">Dúvidas ou sugestões? Entre em contato conosco!</p>
+            <h2>Entre em Contato</h2>
+            <p style="margin-bottom: 2rem;">Dúvidas ou sugestões? Fale conosco através dos canais abaixo.</p>
             <div class="contact-info">
                 <div class="contact-item">
-                    <strong>☎️ Telefone:</strong>
+                    <strong>Telefone:</strong>
                     <p>(61) 3901-6000</p>
                 </div>
                 <div class="contact-item">
-                    <strong>📧 Email:</strong>
+                    <strong>Email:</strong>
                     <p>coleta@santamaria.df.gov.br</p>
                 </div>
                 <div class="contact-item">
-                    <strong>🏛️ Endereço:</strong>
+                    <strong>Endereço:</strong>
                     <p>Prefeitura de Santa Maria, DF</p>
                 </div>
             </div>
@@ -796,33 +851,67 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Sistema de Recolhimento de Lixo - Santa Maria, DF</p>
-        <p>Desenvolvido com ❤️ para melhorar a qualidade de vida da comunidade</p>
-        <hr class="footer-divider">
+        <p>Prefeitura Municipal | Serviço Público</p>
         <p><a href="#inicio">Voltar ao Topo</a></p>
     </footer>
 
     <script>
-        // Dados de exemplo para coleta por bairro e rua
-        const collectionData = {
+        // Dados de ruas por bairro - Com validação
+        const streetData = {
             centro: {
                 dias: [2, 4, 6, 8, 11, 13, 15, 18, 20, 22, 25, 27, 29],
-                horario: "07:00 às 17:00"
+                horario: "07:00 às 17:00",
+                ruas: [
+                    "Avenida Central",
+                    "Rua da República",
+                    "Praça Cívica",
+                    "Avenida Brasil",
+                    "Rua Governador"
+                ]
             },
             sul: {
                 dias: [3, 5, 7, 9, 12, 14, 16, 19, 21, 23, 26, 28, 30],
-                horario: "06:00 às 16:00"
+                horario: "06:00 às 16:00",
+                ruas: [
+                    "Avenida Sul",
+                    "Rua do Comércio",
+                    "Avenida Morena",
+                    "Rua Parque",
+                    "Avenida Verdão"
+                ]
             },
             norte: {
                 dias: [2, 4, 6, 9, 11, 13, 16, 18, 20, 23, 25, 27, 30],
-                horario: "08:00 às 18:00"
+                horario: "08:00 às 18:00",
+                ruas: [
+                    "Avenida Norte",
+                    "Rua Residencial",
+                    "Avenida Bandeirantes",
+                    "Rua Industrial",
+                    "Avenida Comercial"
+                ]
             },
             leste: {
                 dias: [3, 5, 8, 10, 12, 15, 17, 19, 22, 24, 26, 29, 31],
-                horario: "07:00 às 17:00"
+                horario: "07:00 às 17:00",
+                ruas: [
+                    "Avenida Leste",
+                    "Rua Belém",
+                    "Avenida Popular",
+                    "Rua Integração",
+                    "Avenida Acadêmica"
+                ]
             },
             oeste: {
                 dias: [4, 6, 7, 9, 11, 14, 16, 18, 21, 23, 25, 28, 30],
-                horario: "06:00 às 16:00"
+                horario: "06:00 às 16:00",
+                ruas: [
+                    "Avenida Oeste",
+                    "Rua Nova Santa Maria",
+                    "Avenida Portal",
+                    "Rua São José",
+                    "Avenida dos Pioneiros"
+                ]
             }
         };
 
@@ -834,7 +923,6 @@
             navLinks.classList.toggle('active');
         });
 
-        // Fechar menu ao clicar em um link
         navLinks.addEventListener('click', (e) => {
             if (e.target.tagName === 'A') {
                 navLinks.classList.remove('active');
@@ -845,53 +933,102 @@
         const searchForm = document.getElementById('searchForm');
         const resultsSection = document.getElementById('resultsSection');
         const resultsContainer = document.getElementById('resultsContainer');
+        const neighborhoodSelect = document.getElementById('neighborhood');
+        const streetInput = document.getElementById('street');
 
         searchForm.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const street = document.getElementById('street').value.trim();
-            const neighborhood = document.getElementById('neighborhood').value;
+            const neighborhood = neighborhoodSelect.value;
+            const street = streetInput.value.trim();
 
             if (!street || !neighborhood) {
-                alert('Por favor, preencha todos os campos!');
+                showAlert('Por favor, preencha todos os campos.', 'error');
                 return;
             }
 
-            const data = collectionData[neighborhood];
+            const data = streetData[neighborhood];
             
             if (data) {
+                const neighborhoodName = neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1);
+                const isValidStreet = validateStreet(street, data.ruas);
                 const nextCollection = data.dias.find(day => day >= new Date().getDate()) || data.dias[0];
                 const proxCollection = nextCollection >= new Date().getDate() ? nextCollection : nextCollection + 30;
 
-                const html = `
-                    <div class="result-card">
-                        <h3>📍 ${street}</h3>
-                        <p style="color: #666; margin-bottom: 1rem;">Bairro: <strong>${neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1)}</strong></p>
-                        <div class="collection-day">
-                            <span>📦 Próxima coleta:</span>
-                            <strong>${proxCollection < 30 ? 'Maio' : 'Junho'}, ${proxCollection < 30 ? proxCollection : proxCollection - 30}</strong>
-                        </div>
-                        <div class="collection-info">
-                            <p><strong>⏰ Horário:</strong> ${data.horario}</p>
-                            <p><strong>📅 Frequência:</strong> Segundas, quartas e sextas (ou conforme calendário)</p>
-                            <p style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.9rem;">
-                                ✅ Dica: Coloque suas sacolas na calçada respeitando o horário indicado. Evite deixar lixo na rua em outros dias.
+                let html = '';
+                
+                if (!isValidStreet) {
+                    html = `
+                        <div class="alert alert-warning">
+                            ⚠️ <strong>Atenção:</strong> A rua "<strong>${escapeHtml(street)}</strong>" não foi encontrada na base de dados de <strong>${neighborhoodName}</strong>.
+                            <br><br>
+                            <strong>Ruas cadastradas em ${neighborhoodName}:</strong>
+                            <ul style="margin-top: 0.5rem; margin-left: 2rem;">
+                                ${data.ruas.map(r => `<li>${r}</li>`).join('')}
+                            </ul>
+                            <p style="margin-top: 1rem; font-size: 0.9rem;">
+                                Se sua rua não está na lista, entre em contato com a Prefeitura para atualizar o cadastro.
                             </p>
                         </div>
-                    </div>
-                `;
+                    `;
+                } else {
+                    html = `
+                        <div class="result-card">
+                            <div style="display: flex; justify-content: space-between; align-items: start;">
+                                <div>
+                                    <h3>${escapeHtml(street)}</h3>
+                                    <p style="color: #666; margin-bottom: 1rem;">Bairro: <strong>${neighborhoodName}</strong></p>
+                                </div>
+                                <span class="result-card-status status-valid">✓ Válido</span>
+                            </div>
+                            <div class="collection-info">
+                                <p><strong>📅 Próxima Coleta:</strong> ${proxCollection < 30 ? 'Maio' : 'Junho'}, ${proxCollection < 30 ? proxCollection : proxCollection - 30}</p>
+                                <p><strong>⏰ Horário:</strong> ${data.horario}</p>
+                                <p><strong>📋 Frequência:</strong> Segundas, quartas e sextas (conforme calendário acima)</p>
+                                <p style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color); font-size: 0.9rem;">
+                                    ℹ️ Coloque suas sacolas na calçada respeitando o horário indicado. Evite deixar lixo na rua em outros dias.
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                }
 
                 resultsContainer.innerHTML = html;
                 resultsSection.classList.add('active');
 
-                // Scroll para os resultados
                 setTimeout(() => {
                     resultsSection.scrollIntoView({ behavior: 'smooth' });
                 }, 100);
             }
         });
 
-        // Smooth scroll para links de âncora
+        // Função para validar rua
+        function validateStreet(inputStreet, validStreets) {
+            const input = inputStreet.toLowerCase().trim();
+            return validStreets.some(street => 
+                street.toLowerCase().includes(input) || 
+                input.includes(street.toLowerCase())
+            );
+        }
+
+        // Função para mostrar alerta
+        function showAlert(message, type) {
+            const alertHtml = `<div class="alert alert-${type}">${message}</div>`;
+            resultsContainer.innerHTML = alertHtml;
+            resultsSection.classList.add('active');
+            setTimeout(() => {
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        }
+
+        // Função para escapar HTML
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Smooth scroll para âncoras
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -902,7 +1039,7 @@
             });
         });
 
-        // Adicionar classe "today" ao dia de hoje no calendário (opcional)
+        // Marcar dia atual no calendário
         const today = new Date().getDate();
         document.querySelectorAll('.calendar td').forEach(cell => {
             if (parseInt(cell.textContent) === today && !cell.classList.contains('other-month')) {
