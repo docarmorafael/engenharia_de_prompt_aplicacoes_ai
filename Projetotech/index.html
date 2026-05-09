@@ -1,1 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Consulte os dias de recolhimento de lixo em Santa Maria, DF">
+    <meta name="keywords" content="coleta de lixo, Santa Maria, DF, recolhimento, limpeza">
+    <meta name="author" content="Projeto Tech">
+    <title>🗑️ Recolhimento de Lixo - Santa Maria, DF</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-color: #2ecc71;
+            --secondary-color: #27ae60;
+            --dark-bg: #1a1a1a;
+            --light-bg: #f8f9fa;
+            --text-dark: #2c3e50;
+            --text-light: #ecf0f1;
+            --border-color: #bdc3c7;
+            --success-color: #2ecc71;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--light-bg);
+        }
+
+        /* Header e Navegação */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 1rem;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Seção de Busca */
+        .search-section {
+            background: white;
+            padding: 2rem;
+            margin: -3rem 1rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 10;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            align-items: end;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select {
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(46, 204, 113, 0.3);
+        }
+
+        .btn-search {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 2rem;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-search:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-search:active {
+            transform: translateY(0);
+        }
+
+        /* Seção de Resultados */
+        .results-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            display: none;
+        }
+
+        .results-section.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-card {
+            border: 2px solid var(--border-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .result-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .result-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .collection-day {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .collection-day strong {
+            color: var(--secondary-color);
+        }
+
+        .collection-info {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Seção de Calendário */
+        .calendar-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .calendar-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .calendar {
+            width: 100%;
+            border-collapse: collapse;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .calendar thead {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .calendar th {
+            padding: 1rem;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .calendar td {
+            padding: 1rem;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            height: 60px;
+        }
+
+        .calendar td.collection-day-marker {
+            background: rgba(46, 204, 113, 0.2);
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .calendar td.today {
+            background: rgba(243, 156, 18, 0.2);
+            border: 2px solid var(--warning-color);
+        }
+
+        .calendar td.other-month {
+            color: #ccc;
+            background: #fafafa;
+        }
+
+        /* Seção de Informações */
+        .info-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .info-card {
+            text-align: center;
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .info-card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        /* Seção de Dicas */
+        .tips-section {
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+        }
+
+        .tips-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .tips-list {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .tips-list li {
+            background: white;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary-color);
+            border-radius: 5px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .tips-list li strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Seção de Contato */
+        .contact-section {
+            background: white;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contact-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            padding: 1.5rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.2);
+        }
+
+        .contact-item strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: opacity 0.3s ease;
+        }
+
+        footer a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-divider {
+            margin: 1.5rem 0;
+            border: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--secondary-color);
+                padding: 1rem;
+                gap: 1rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-section {
+                margin: -2rem 1rem 2rem;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tips-list {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .logo {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.5rem;
+            }
+
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            .search-section {
+                padding: 1rem;
+                margin: -1.5rem 0.5rem 1rem;
+            }
+
+            .result-card {
+                padding: 1rem;
+            }
+
+            .info-card-icon {
+                font-size: 2rem;
+            }
+
+            .calendar {
+                font-size: 0.9rem;
+            }
+
+            .calendar td {
+                padding: 0.5rem;
+                height: 50px;
+            }
+
+            .calendar th {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Animações */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        section {
+            animation: fadeIn 0.5s ease;
+        }
+
+        /* Utilitários */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: #999;
+        }
+
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <span>🗑️ Coleta Lixo SM</span>
+            </div>
+            <button class="menu-toggle" id="menuToggle">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#calendario">Calendário</a></li>
+                <li><a href="#dicas">Dicas</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>🗑️ Recolhimento de Lixo em Santa Maria, DF</h1>
+            <p>Consulte facilmente os dias de coleta para sua rua e organize-se melhor</p>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <div class="container">
+        <section class="search-section">
+            <form class="search-form" id="searchForm">
+                <div class="form-group">
+                    <label for="street">Rua ou Avenida:</label>
+                    <input type="text" id="street" placeholder="Digite o nome da sua rua..." required>
+                </div>
+                <div class="form-group">
+                    <label for="neighborhood">Bairro:</label>
+                    <select id="neighborhood" required>
+                        <option value="">Selecione o bairro</option>
+                        <option value="centro">Centro</option>
+                        <option value="sul">Zona Sul</option>
+                        <option value="norte">Zona Norte</option>
+                        <option value="leste">Zona Leste</option>
+                        <option value="oeste">Zona Oeste</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-search">🔍 Buscar</button>
+            </form>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <h2>Resultados da Busca</h2>
+            <div id="resultsContainer"></div>
+        </section>
+
+        <!-- Calendar Section -->
+        <section class="calendar-section" id="calendario">
+            <h2>📅 Calendário de Coleta - Maio 2026</h2>
+            <table class="calendar">
+                <thead>
+                    <tr>
+                        <th>Dom</th>
+                        <th>Seg</th>
+                        <th>Ter</th>
+                        <th>Qua</th>
+                        <th>Qui</th>
+                        <th>Sex</th>
+                        <th>Sáb</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="other-month">26</td>
+                        <td class="other-month">27</td>
+                        <td class="other-month">28</td>
+                        <td class="other-month">29</td>
+                        <td class="other-month">30</td>
+                        <td>1</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td class="collection-day-marker">4 📦</td>
+                        <td>5</td>
+                        <td class="collection-day-marker">6 📦</td>
+                        <td>7</td>
+                        <td class="collection-day-marker">8 📦</td>
+                        <td>9</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td class="collection-day-marker">11 📦</td>
+                        <td>12</td>
+                        <td class="collection-day-marker">13 📦</td>
+                        <td>14</td>
+                        <td class="collection-day-marker">15 📦</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td>17</td>
+                        <td class="collection-day-marker">18 📦</td>
+                        <td>19</td>
+                        <td class="collection-day-marker">20 📦</td>
+                        <td>21</td>
+                        <td class="collection-day-marker">22 📦</td>
+                        <td>23</td>
+                    </tr>
+                    <tr>
+                        <td>24</td>
+                        <td class="collection-day-marker">25 📦</td>
+                        <td>26</td>
+                        <td class="collection-day-marker">27 📦</td>
+                        <td>28</td>
+                        <td class="collection-day-marker">29 📦</td>
+                        <td>30</td>
+                    </tr>
+                    <tr>
+                        <td>31</td>
+                        <td class="other-month">1</td>
+                        <td class="other-month">2</td>
+                        <td class="other-month">3</td>
+                        <td class="other-month">4</td>
+                        <td class="other-month">5</td>
+                        <td class="other-month">6</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Info Section -->
+        <section class="info-section">
+            <h2 style="color: var(--primary-color); text-align: center; margin-bottom: 2rem;">Como Funciona</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="info-card-icon">📍</div>
+                    <h3>Localize sua Rua</h3>
+                    <p>Digite o nome da sua rua ou avenida e selecione o bairro para encontrar informações específicas.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">📅</div>
+                    <h3>Confira o Dia</h3>
+                    <p>Consulte o dia exato de coleta para sua localidade no calendário interativo.</p>
+                </div>
+                <div class="info-card">
+                    <div class="info-card-icon">⏰</div>
+                    <h3>Organize-se</h3>
+                    <p>Coloque suas sacolas na rua de forma segura no dia indicado. A coleta ocorre entre 6h e 18h.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips Section -->
+        <section class="tips-section" id="dicas">
+            <h2>💡 Dicas Importantes para a Coleta</h2>
+            <ul class="tips-list">
+                <li>
+                    <strong>🕕 Horário de Coleta:</strong>
+                    A coleta acontece entre 6h00 e 18h00. Coloque suas sacolas na calçada respeitando este horário.
+                </li>
+                <li>
+                    <strong>🗑️ Separação do Lixo:</strong>
+                    Separe o lixo orgânico do reciclável para facilitar o processo de coleta e reciclagem.
+                </li>
+                <li>
+                    <strong>👜 Acondicionamento:</strong>
+                    Use sacolas resistentes para evitar vazamentos e facilitar o manuseio pelos coletores.
+                </li>
+                <li>
+                    <strong>🚫 O que NÃO colocar:</strong>
+                    Não coloque entulho, materiais perigosos, ou objetos que possam danificar o caminhão de coleta.
+                </li>
+                <li>
+                    <strong>📦 Coleta de Móveis:</strong>
+                    Para móveis grandes, agende com antecedência através do contato da Prefeitura.
+                </li>
+                <li>
+                    <strong>🌧️ Dias Chuvosos:</strong>
+                    A coleta não é suspenso em dias chuvosos. Proteja suas sacolas com sacos plásticos se necessário.
+                </li>
+            </ul>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contato">
+            <h2>📞 Entre em Contato</h2>
+            <p style="margin-bottom: 2rem;">Dúvidas ou sugestões? Entre em contato conosco!</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>☎️ Telefone:</strong>
+                    <p>(61) 3901-6000</p>
+                </div>
+                <div class="contact-item">
+                    <strong>📧 Email:</strong>
+                    <p>coleta@santamaria.df.gov.br</p>
+                </div>
+                <div class="contact-item">
+                    <strong>🏛️ Endereço:</strong>
+                    <p>Prefeitura de Santa Maria, DF</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Sistema de Recolhimento de Lixo - Santa Maria, DF</p>
+        <p>Desenvolvido com ❤️ para melhorar a qualidade de vida da comunidade</p>
+        <hr class="footer-divider">
+        <p><a href="#inicio">Voltar ao Topo</a></p>
+    </footer>
+
+    <script>
+        // Dados de exemplo para coleta por bairro e rua
+        const collectionData = {
+            centro: {
+                dias: [2, 4, 6, 8, 11, 13, 15, 18, 20, 22, 25, 27, 29],
+                horario: "07:00 às 17:00"
+            },
+            sul: {
+                dias: [3, 5, 7, 9, 12, 14, 16, 19, 21, 23, 26, 28, 30],
+                horario: "06:00 às 16:00"
+            },
+            norte: {
+                dias: [2, 4, 6, 9, 11, 13, 16, 18, 20, 23, 25, 27, 30],
+                horario: "08:00 às 18:00"
+            },
+            leste: {
+                dias: [3, 5, 8, 10, 12, 15, 17, 19, 22, 24, 26, 29, 31],
+                horario: "07:00 às 17:00"
+            },
+            oeste: {
+                dias: [4, 6, 7, 9, 11, 14, 16, 18, 21, 23, 25, 28, 30],
+                horario: "06:00 às 16:00"
+            }
+        };
+
+        // Menu mobile
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Fechar menu ao clicar em um link
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.tagName === 'A') {
+                navLinks.classList.remove('active');
+            }
+        });
+
+        // Busca de coleta
+        const searchForm = document.getElementById('searchForm');
+        const resultsSection = document.getElementById('resultsSection');
+        const resultsContainer = document.getElementById('resultsContainer');
+
+        searchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const street = document.getElementById('street').value.trim();
+            const neighborhood = document.getElementById('neighborhood').value;
+
+            if (!street || !neighborhood) {
+                alert('Por favor, preencha todos os campos!');
+                return;
+            }
+
+            const data = collectionData[neighborhood];
+            
+            if (data) {
+                const nextCollection = data.dias.find(day => day >= new Date().getDate()) || data.dias[0];
+                const proxCollection = nextCollection >= new Date().getDate() ? nextCollection : nextCollection + 30;
+
+                const html = `
+                    <div class="result-card">
+                        <h3>📍 ${street}</h3>
+                        <p style="color: #666; margin-bottom: 1rem;">Bairro: <strong>${neighborhood.charAt(0).toUpperCase() + neighborhood.slice(1)}</strong></p>
+                        <div class="collection-day">
+                            <span>📦 Próxima coleta:</span>
+                            <strong>${proxCollection < 30 ? 'Maio' : 'Junho'}, ${proxCollection < 30 ? proxCollection : proxCollection - 30}</strong>
+                        </div>
+                        <div class="collection-info">
+                            <p><strong>⏰ Horário:</strong> ${data.horario}</p>
+                            <p><strong>📅 Frequência:</strong> Segundas, quartas e sextas (ou conforme calendário)</p>
+                            <p style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #ddd; font-size: 0.9rem;">
+                                ✅ Dica: Coloque suas sacolas na calçada respeitando o horário indicado. Evite deixar lixo na rua em outros dias.
+                            </p>
+                        </div>
+                    </div>
+                `;
+
+                resultsContainer.innerHTML = html;
+                resultsSection.classList.add('active');
+
+                // Scroll para os resultados
+                setTimeout(() => {
+                    resultsSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
+            }
+        });
+
+        // Smooth scroll para links de âncora
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Adicionar classe "today" ao dia de hoje no calendário (opcional)
+        const today = new Date().getDate();
+        document.querySelectorAll('.calendar td').forEach(cell => {
+            if (parseInt(cell.textContent) === today && !cell.classList.contains('other-month')) {
+                cell.classList.add('today');
+            }
+        });
+    </script>
+</body>
+</html>
